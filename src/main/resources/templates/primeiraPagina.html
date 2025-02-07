@@ -1,0 +1,18 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestao de vagas</title>
+</head>
+<body>
+    <h1>seja bem vindo a esse projeto</h1>
+    <p th:text="${mensagemDaController}"></p>
+    <form method="post" th:action="@{/create}">
+        Nome do Candidato:
+        <input type="text" name="nome_candidato"/>
+        <br/>
+        <button>cadastrar Candidato</button>
+    </form>
+</body>
+</html>
