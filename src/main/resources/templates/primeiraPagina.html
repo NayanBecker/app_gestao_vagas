@@ -7,10 +7,15 @@
 </head>
 <body>
     <h1>seja bem vindo a esse projeto</h1>
+
     <p th:text="${mensagemDaController}"></p>
-    <form method="post" th:action="@{/create}">
-        Nome do Candidato:
-        <input type="text" name="nome_candidato"/>
+
+    <form method="post" th:action="@{/create}" th:object="${pessoa}">
+        Nome: <input type="text" name="nome"/>
+        <br/>
+        email: <input type="text" name="email"/>
+        <br/>
+        username: <input type="text" name="username"/>
         <br/>
         <button>cadastrar Candidato</button>
     </form>
