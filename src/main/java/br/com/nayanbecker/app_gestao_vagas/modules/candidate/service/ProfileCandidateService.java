@@ -8,17 +8,19 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import br.com.nayanbecker.app_gestao_vagas.modules.candidate.dto.ProfileUserDto;
+
 @Service
 public class ProfileCandidateService {
     
-    public String execute(String token){
+    public ProfileUserDto execute(String token){
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
 
         HttpEntity<Map<String, String>> request = new HttpEntity<>(headers);
 
-        var result = restTemplate.exchange("http://localhost:8080/candidate/",HttpMethod.GET, request, String.class);
+        var result = restTemplate.exchange("http://localhost:8080/candidate/", HttpMethod.GET, request, ProfileUserDto.class);
         System.out.println(result);
         return result.getBody();
     }
