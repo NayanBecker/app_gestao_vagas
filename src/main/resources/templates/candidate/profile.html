@@ -1,14 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script src="https://cdn.tailwindcss.com"></script>
-        <title>Profile do Candidato</title>
-    </head>
-    <body class="">
-        <p>
-            Profile do Candidato
-        </p>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Profile do Candidato</title>
+  </head>
+  <body class="bg-gray-900">
+    <nav class="bg-gray-800">
+      <div class="mx-auto mx-w-7xl px-2 sm:px-6 lg:px-8">
+        <div class="relative flex h-16 items-center justify-between">
+          <div class="text-white space-x-4 font-bold">
+            <a
+              href="/candidate/profile"
+              class="bg-gray-900 rouded-md px-3 py-2"
+            >
+              Perfil do Candidato
+            </a>
+            <a href="">Vagas</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="flex px-40 py-20 text-white justify-center">
+      <div class="grid bg-gray-500 p-10 rounded-lg w-6/12 columns-1 gap-4 grid-cols-1 shadow-lg justify-between">
+        <div class="flex flex-col items-center">
+          <img
+            src="https://cdn.iconscout.com/icon/free/png-256/avatar-380-456332.png"
+            alt="avatar"
+            class="rounded-full h-30 w-30"
+          />
+          <h1 class="text-2xl font-bold mt-4">Nome do Candidato</h1>
+          <p class="text-lg mt-2">Email do Candidato</p>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
