@@ -1,7 +1,9 @@
 package br.com.nayanbecker.app_gestao_vagas.modules.candidate.service;
 
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,10 +13,12 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.nayanbecker.app_gestao_vagas.modules.candidate.dto.JobDTO;
+
 @Service
 public class FindAllJobsService {
 
-    public String execute(String token, String filter) {
+    public List<JobDTO> execute(String token, String filter) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
@@ -24,11 +28,14 @@ public class FindAllJobsService {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/candidate/job")
                 .queryParam("filter", filter);
 
+        ParameterizedTypeReference<List<JobDTO>> responseType = new ParameterizedTypeReference<List<JobDTO>>() {
+        };
+
         try {
-            var result = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, request, String.class);
+            var result = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, request, responseType);
             System.out.println(result);
             return result.getBody();
-        } catch (Exception e) {
+        } catch (HttpClientErrorException.Unauthorized e) {
             throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
         }
     }

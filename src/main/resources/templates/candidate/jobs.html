@@ -29,22 +29,40 @@
       <div
         class="bg-gray-500 p-10 rounded-lg w-6/12 gap-4 shadow-lg justify-between w-[100%]"
       >
-        <div>
-          <div class="flex justify-end">
-            <h1 class="text-3xl font-bold text-center w-[70%]">
-              Vagas Disponíveis
-            </h1>
-            <form action="" method="GET">
-              <input
-                type="text"
-                name="filter"
-                placeholder="Filtrar vagas"
-                class="px-4 py-2 rounded-md text-gray-900"
-              />
-              <button class="hidden"></button>
-            </form>
-          </div>
+        <div class="flex justify-end">
+          <h1 class="text-3xl font-bold text-center w-[70%]">
+            Vagas Disponíveis
+          </h1>
+          <form action="" method="GET">
+            <input
+              type="text"
+              name="filter"
+              placeholder="Filtrar vagas"
+              class="px-4 py-2 rounded-md text-gray-900"
+            />
+            <button class="hidden"></button>
+          </form>
         </div>
+        <form th:action="@{/candidate/jobs/apply}" method="post">
+          <div th:each="job : ${jobs}">
+            <div
+              class="bg-gray-700 p-4 rounded-lg my-4 flex justify-between items-center shadow-lg"
+            >
+              <span class="flex-1">
+                <input type="hidden" name="jobId" th:value="${job.id}" />
+                <h2 class="text-xl font-bold" th:text="${job.title}"></h2>
+                <p class="text-sm" th:text="${job.description}"></p>
+                <p class="text-sm" th:text="${job.benefits}"></p>
+                <p class="text-sm" th:text="${job.level}"></p>
+              </span>
+              <div class="">
+                <button class="bg-gray-900 rounded-md px-3 py-2"
+                  >Candidatar-se</button
+                >
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </body>
