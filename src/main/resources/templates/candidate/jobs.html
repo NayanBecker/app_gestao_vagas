@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Vagas Disponíveis</title>
+  </head>
+  <body class="bg-gray-900">
+    <nav class="bg-gray-800">
+      <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div
+          class="relative flex h-16 items-center justify-start justify-between"
+        >
+          <div class="text-white space-x-4 font-bold">
+            <a
+              href="/candidate/profile"
+              class="hover:bg-gray-900 rounded-md px-3 py-2"
+              >Perfil do Candidato</a
+            >
+            <a href="/candidate/jobs" class="bg-gray-900 rounded-md px-3 py-2"
+              >Vagas</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="flex px-40 py-20 text-white justify-center">
+      <div
+        class="bg-gray-500 p-10 rounded-lg w-6/12 gap-4 shadow-lg justify-between w-[100%]"
+      >
+        <div>
+          <div class="flex justify-end">
+            <h1 class="text-3xl font-bold text-center w-[70%]">
+              Vagas Disponíveis
+            </h1>
+            <form action="" method="GET">
+              <input
+                type="text"
+                name="filter"
+                placeholder="Filtrar vagas"
+                class="px-4 py-2 rounded-md text-gray-900"
+              />
+              <button class="hidden"></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

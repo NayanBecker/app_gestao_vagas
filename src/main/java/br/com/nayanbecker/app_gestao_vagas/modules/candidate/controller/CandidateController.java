@@ -16,6 +16,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.nayanbecker.app_gestao_vagas.modules.candidate.service.CandidateService;
+import br.com.nayanbecker.app_gestao_vagas.modules.candidate.service.FindAllJobsService;
 import br.com.nayanbecker.app_gestao_vagas.modules.candidate.service.ProfileCandidateService;
 import jakarta.servlet.http.HttpSession;
 
@@ -33,6 +34,8 @@ public class CandidateController {
     public String login() {
         return "candidate/login";
     }
+    @Autowired
+    private FindAllJobsService findAllJobsService;
 
     @PostMapping("/signIn")
     public String signIn(RedirectAttributes redirectAttributes, HttpSession session, String email, String password) {
@@ -69,5 +72,27 @@ public class CandidateController {
         model.addAttribute("user", result);
 
         return "candidate/profile";
+    }
+
+    @GetMapping("/jobs")
+    @PreAuthorize("hasRole('CANDIDATE')")
+    public String jobs(String filter) {
+        try {
+            if (filter != null) {
+                System.out.println("Valor do filtro: " + filter);
+                // model.addAttribute("jobs", filter);
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                this.findAllJobsService.execute(getToken(), filter);
+            }
+        } catch (HttpClientErrorException e) {
+            return "redirect:/candidate/login";
+        }
+
+        return "candidate/jobs";
+    }
+
+    private String getToken() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getDetails().toString();
     }
 }
