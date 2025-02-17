@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns=:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,7 @@
 </head>
 <body class="bg-gray-900 h-full flex justify-center items-center">
     <div >
-        <form action="" th:action="@{/candidate/signIn}" method="post">
+        <form id="submitForm" action="" th:action="@{/candidate/create}" method="post" th:object="${candidate}">
             <div class="flex justify-center items-center h-full mt-[10vh]">
                 <div class="bg-white p-10 rounded-lg shadow-2xl">
                     <h2 class="text-2xl font-bold text-center">Seja Bem-vindo</h2>
@@ -22,31 +22,35 @@
 
                     <div class="mb-6">
                         <label for="nome" class="block text-gray-800 font-bold">Nome completo</label>
-                        <input type="text" id="nome" name="nome" class="w-full p-3 rounded-lg" placeholder="Digite seu nome e sobrenome">
+                        <input type="text" name="nome" class="w-full p-3 rounded-lg" placeholder="Digite seu nome e sobrenome" th:field="*{name}">
                     </div>
 
                     <div class="mb-6">
                         <label for="username" class="block text-gray-800 font-bold">Nome de Usuario</label>
-                        <input type="text" id="username" name="username" class="w-full p-3 rounded-lg" placeholder="Digite seu nome de usuario">
+                        <input type="text" name="username" class="w-full p-3 rounded-lg" placeholder="Digite seu nome de usuario" th:field="*{username}">
                     </div>
 
                     <div class="mb-6">
                         <label for="email" class="block text-gray-800 font-bold">E-mail</label>
-                        <input type="email" id="email" name="email" class="w-full p-3 rounded-lg" placeholder="Digite seu e-mail">
+                        <input type="email" name="email" class="w-full p-3 rounded-lg" placeholder="Digite seu e-mail" th:field="*{email}">
                     </div>
                     <div class="mb-6">
                         <label for="password" class="block text-gray-800 font-bold">Senha</label>
-                        <input type="password" id="password" name="password" class="w-full p-3 rounded-lg" placeholder="Digite sua senha">
+                        <input type="password" name="password" class="w-full p-3 rounded-lg" placeholder="Digite sua senha" th:field="*{password}">
                     </div>
                     <div class="mb-6">
-                        <label for="confirm-password" class="block text-gray-800 font-bold">Confirme Senha</label>
-                        <input type="password" id="confirm-password" name="confirm-password" class="w-full p-3 rounded-lg" placeholder="Digite sua senha novamente">
+                        <label for="confirmPassword" class="block text-gray-800 font-bold">Confirme Senha</label>
+                        <input type="password" name="confirmPassword" class="w-full p-3 rounded-lg" placeholder="Digite sua senha novamente">
                     </div>
 
                     <div class="mb-6">
                         <label for="description" class="block text-gray-800 font-bold">Descrição própria</label>
-                        <input type="text" id="description" name="description" class="w-full p-3 py-5 rounded-lg" placeholder="Digite uma breve descrição sobre você">
+                        <textarea type="text" name="description" class="w-full p-3 py-5 rounded-lg" placeholder="Digite uma breve descrição sobre você" th:field="*{description}">
+                        
+                        </textarea>
                     </div>
+
+                    <p class="text-red-400 mb-6 text-center hidden" id="password_error">As Senhas não conferem</p>
 
                     <button class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 rounded-lg">Cadastra-se</button>
                     <p class="text-center mt-4"> <a href="/candidate/login" class="underline">Login</a></p>
@@ -55,4 +59,21 @@
         </form>
     </div>
 </body>
+
+<script>
+    document.getElementById("submitForm").addEventListener("submit", (event) => {
+
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+        
+        event.preventDefault();
+
+        if (password != confirmPassword) {
+            document.getElementById("password_error").classList.remove("hidden");
+            console.log("Senhas não conferem");
+            return;
+        }
+
+    });
+</script>
 </html>
