@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Cadastro de Company</title>
+  </head>
+  <body class="bg-green-900 h-full flex justify-center items-center">
+    <div>
+      <form
+        id="submitForm"
+        action=""
+        th:action="@{/company/create}"
+        method="post"
+        th:object="${company}"
+      >
+        <div class="flex justify-center items-center h-full mt-[10vh]">
+          <div class="bg-white p-10 rounded-lg shadow-2xl space-y-4">
+            <h2 class="text-2xl font-bold text-center">Seja Bem-vindo</h2>
+            <h2 class="text-3xl font-bold mb-10 text-center">
+              Cadastro da Empresa
+            </h2>
+
+            <input
+              type="text"
+              name="name"
+              th:field="*{name}"
+              class="bg-gray-50 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-green-600 focus:ring-2"
+              placeholder="Digite o seu nome"
+            />
+            <input
+              type="text"
+              name="username"
+              th:field="*{username}"
+              class="bg-gray-50 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-green-600 focus:ring-2"
+              placeholder="Digite oo seu usuário"
+            />
+            <input
+              type="email"
+              name="email"
+              th:field="*{email}"
+              class="bg-gray-50 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-green-600 focus:ring-2"
+              placeholder="E-mail"
+            />
+            <input
+              type="password"
+              id="password"
+              th:field="*{password}"
+              name="password"
+              class="bg-gray-50 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-green-600 focus:ring-2"
+              placeholder="Senha"
+            />
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              class="bg-gray-50 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-green-600 focus:ring-2"
+              placeholder="Confirme sua senha"
+            />
+            <input
+              type="text"
+              name="website"
+              th:field="*{website}"
+              class="bg-gray-50 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-green-600 focus:ring-2"
+              placeholder="Website"
+            />
+            <textarea
+              name="description"
+              th:field="*{description}"
+              placeholder="Digite uma breve descrição sobre você"
+              class="bg-gray-50 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-green-600 focus:ring-2"
+            ></textarea>
+
+            <p
+              class="text-red-400 mb-6"
+              th:if="${error_message}"
+              th:text="${error_message}"
+            ></p>
+            <p class="text-red-400 mb-6 text-center hidden" id="password_error">
+              As Senhas não conferem
+            </p>
+
+            <button
+              class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 rounded-lg"
+            >
+              Cadastra-se
+            </button>
+            <p class="text-center mt-4">
+              <a href="/candidate/login" class="underline">Login</a>
+            </p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+
+  <script>
+    document
+      .getElementById("submitForm")
+      .addEventListener("submit", (event) => {
+        var password = document.getElementById("password_ID").value;
+        var confirmPassword =
+          document.getElementById("confirmPassword_ID").value;
+
+        event.preventDefault();
+
+        if (password != confirmPassword) {
+          document.getElementById("password_error").classList.remove("hidden");
+          console.log("Senhas não conferem");
+          return;
+        }
+      });
+  </script>
+</html>
