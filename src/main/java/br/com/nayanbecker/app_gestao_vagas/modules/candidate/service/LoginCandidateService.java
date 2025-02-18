@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import br.com.nayanbecker.app_gestao_vagas.modules.candidate.dto.Token;
 
 @Service
-public class CandidateService {
+public class LoginCandidateService {
 
     public Token login(String email, String password) {
         RestTemplate restTemplate = new RestTemplate();

@@ -20,9 +20,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.nayanbecker.app_gestao_vagas.modules.candidate.dto.CreateCandidateDTO;
 import br.com.nayanbecker.app_gestao_vagas.modules.candidate.service.ApplyJobService;
-import br.com.nayanbecker.app_gestao_vagas.modules.candidate.service.CandidateService;
 import br.com.nayanbecker.app_gestao_vagas.modules.candidate.service.CreateCandidateService;
 import br.com.nayanbecker.app_gestao_vagas.modules.candidate.service.FindAllJobsService;
+import br.com.nayanbecker.app_gestao_vagas.modules.candidate.service.LoginCandidateService;
 import br.com.nayanbecker.app_gestao_vagas.modules.candidate.service.ProfileCandidateService;
 import br.com.nayanbecker.app_gestao_vagas.utils.FormatErrorMessage;
 import jakarta.servlet.http.HttpSession;
@@ -35,7 +35,7 @@ public class CandidateController {
     private ProfileCandidateService profileCandidateService;
 
     @Autowired
-    private CandidateService candidateService;
+    private LoginCandidateService candidateService;
 
     @Autowired
     private ApplyJobService applyJobService;
