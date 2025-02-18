@@ -50,6 +50,7 @@
                         </textarea>
                     </div>
 
+                    <p class="text-red-400" th:if="${error_message}" th:text="${error_message}"></p>
                     <p class="text-red-400 mb-6 text-center hidden" id="password_error">As Senhas não conferem</p>
 
                     <button class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 rounded-lg">Cadastra-se</button>
