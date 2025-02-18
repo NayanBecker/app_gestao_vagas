@@ -1,6 +1,7 @@
 package br.com.nayanbecker.app_gestao_vagas.modules.company.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -74,8 +75,13 @@ public class CompanyController {
             session.setAttribute("token", token);
             return "redirect:/company/jobs";
         } catch (HttpClientErrorException e) {
-            redirectAttributes.addFlashAttribute("error_message", "Usuário/Senha incorretos");
-            return "redirect:/company/jobs";
+            redirectAttributes.addFlashAttribute("error_message", "Email ou Senha incorretos");
+            return "redirect:/company/login";
         }
+    }
+    @GetMapping("/jobs")
+    @PreAuthorize("hasRole('COMPANY')")
+    public String jobs() {
+        return "company/jobs";
     }
 }
