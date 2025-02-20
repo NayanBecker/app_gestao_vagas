@@ -38,12 +38,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="border-b">
-              <td class="border px-4 py-3">1</td>
-              <td class="border px-4 py-3">title</td>
-              <td class="border px-4 py-3">Description</td>
-              <td class="border px-4 py-3">Benefícios</td>
-              <td class="border px-4 py-3">Level</td>
+            <tr th:each="job: ${jobs}" class="border-b">
+              <td class="border px-4 py-3" th:text="${job.id}"></td>
+              <td class="border px-4 py-3" th:text="${job.title}"></td>
+              <td class="border px-4 py-3" th:text="${job.description}"></td>
+              <td class="border px-4 py-3" th:text="${job.benefits}"></td>
+              <td class="border px-4 py-3" th:text="${job.level}"></td>
             </tr>
           </tbody>
         </table>

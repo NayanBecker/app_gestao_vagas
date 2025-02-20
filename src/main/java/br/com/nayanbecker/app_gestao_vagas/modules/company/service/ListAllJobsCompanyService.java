@@ -22,7 +22,7 @@ public class ListAllJobsCompanyService {
 
         ParameterizedTypeReference<List<JobDTO>> responseType = new ParameterizedTypeReference<List<JobDTO>>() {
         };
-        var result = restTemplate.exchange("http://localhost:8080/company/job", HttpMethod.GET, httpEntity, responseType);
+        var result = restTemplate.exchange("http://localhost:8080/company/jobs/", HttpMethod.GET, httpEntity, responseType);
 
         return result.getBody();
     }
