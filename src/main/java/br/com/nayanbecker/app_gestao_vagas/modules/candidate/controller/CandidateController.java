@@ -35,13 +35,16 @@ public class CandidateController {
     private ProfileCandidateService profileCandidateService;
 
     @Autowired
-    private LoginCandidateService candidateService;
+    private LoginCandidateService loginCandidateService;
 
     @Autowired
     private ApplyJobService applyJobService;
 
     @Autowired
     private CreateCandidateService createCandidateService;
+
+    @Autowired
+    private FindAllJobsService findAllJobsService;
 
     @GetMapping("/login")
     public String login() {
@@ -61,34 +64,27 @@ public class CandidateController {
     }
 
     @PostMapping("/create")
-    public String save(CreateCandidateDTO candidate, Model model){
-        
-
+    public String save(CreateCandidateDTO createCandidateDTO, Model model) {
         try {
-            this.createCandidateService.execute(candidate);
-            
+            this.createCandidateService.execute(createCandidateDTO);
+
         } catch (HttpClientErrorException e) {
             model.addAttribute("error_message", FormatErrorMessage.formatErrorMessage(e.getResponseBodyAsString()));
         }
-        
-
-        model.addAttribute("candidate", candidate);
+        model.addAttribute("candidate", createCandidateDTO);
         return "candidate/create";
     }
 
 
 
-    @Autowired
-    private FindAllJobsService findAllJobsService;
-
     @PostMapping("/signIn")
     public String signIn(RedirectAttributes redirectAttributes, HttpSession session, String email, String password) {
 
         try {
-            var token = this.candidateService.login(email, password);
+            var token = this.loginCandidateService.login(email, password);
 
             var grants = token.getRoles().stream()
-                    .map(role -> new SimpleGrantedAuthority("ROLE_" + role.toString().toUpperCase())).toList();
+                    .map(role -> new SimpleGrantedAuthority("ROLE_" + role.toUpperCase())).toList();
 
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(null, null, grants);
 

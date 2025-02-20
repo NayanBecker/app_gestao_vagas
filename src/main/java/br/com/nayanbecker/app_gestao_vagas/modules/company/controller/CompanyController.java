@@ -55,30 +55,36 @@ public class CompanyController {
 
         } catch (HttpClientErrorException e) {
             model.addAttribute("error_message", FormatErrorMessage.formatErrorMessage(e.getResponseBodyAsString()));
-            model.addAttribute("company", createCompanyDTO);
         }
+        model.addAttribute("company", createCompanyDTO);
         return "company/create";
     }
 
     @PostMapping("/signIn")
-    public String signIn(RedirectAttributes redirectAttributes, HttpSession session, String username, String password) {
+    public String signIn(RedirectAttributes redirectAttributes, HttpSession session, String email, String password) {
         try {
-            var token = this.loginCompanyService.execute(username, password);
+            var token = this.loginCompanyService.login(email, password);
 
             var grants = token.getRoles().stream()
-                    .map(role -> new SimpleGrantedAuthority("ROLE_" + role.toString().toUpperCase())).toList();
+                    .map(role -> new SimpleGrantedAuthority("ROLE_" + role.toUpperCase())).toList();
+
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(null, null, grants);
+
             auth.setDetails(token.getAccess_token());
+
             SecurityContextHolder.getContext().setAuthentication(auth);
             SecurityContext securityContext = SecurityContextHolder.getContext();
             session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
             session.setAttribute("token", token);
+            
             return "redirect:/company/jobs";
+            
         } catch (HttpClientErrorException e) {
             redirectAttributes.addFlashAttribute("error_message", "Email ou Senha incorretos");
             return "redirect:/company/login";
         }
     }
+
     @GetMapping("/jobs")
     @PreAuthorize("hasRole('COMPANY')")
     public String jobs() {

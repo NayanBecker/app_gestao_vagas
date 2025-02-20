@@ -13,9 +13,10 @@ import br.com.nayanbecker.app_gestao_vagas.modules.candidate.dto.Token;
 
 @Service
 public class LoginCompanyService {
-        public Token execute(String email, String password) {
+
+    public Token login(String email, String password) {
         RestTemplate restTemplate = new RestTemplate();
-HttpHeaders headers = new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         Map<String, String> data = new HashMap<>();
@@ -29,5 +30,5 @@ HttpHeaders headers = new HttpHeaders();
         System.out.println("retorno: " + result);
         return result;
     }
-    
+
 }
