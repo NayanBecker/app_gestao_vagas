@@ -19,6 +19,7 @@ import br.com.nayanbecker.app_gestao_vagas.modules.company.dto.CreateCompanyDTO;
 import br.com.nayanbecker.app_gestao_vagas.modules.company.dto.CreateJobsDTO;
 import br.com.nayanbecker.app_gestao_vagas.modules.company.service.CreateCompanyService;
 import br.com.nayanbecker.app_gestao_vagas.modules.company.service.CreateJobService;
+import br.com.nayanbecker.app_gestao_vagas.modules.company.service.ListAllJobsCompanyService;
 import br.com.nayanbecker.app_gestao_vagas.modules.company.service.LoginCompanyService;
 import br.com.nayanbecker.app_gestao_vagas.utils.FormatErrorMessage;
 import jakarta.servlet.http.HttpSession;
@@ -35,6 +36,9 @@ public class CompanyController {
 
     @Autowired
     private CreateJobService createJobService;  
+
+    @Autowired
+    private ListAllJobsCompanyService listAllJobsCompanyService;
 
     @GetMapping("/create")
     public String create(Model model) {
@@ -104,6 +108,15 @@ public class CompanyController {
         var result = this.createJobService.createJob(jobs, getToken());
         System.out.println(result);
         return "redirect:/company/jobs";
+    }
+
+    @GetMapping("/jobs/list")
+    @PreAuthorize("hasRole('COMPANY')")
+    public String list(Model model) {
+        var result = this.listAllJobsCompanyService.execute(getToken());
+        model.addAttribute("jobs", result);
+        System.out.println(result);
+        return "company/list";
     }
 
     private String getToken(){
